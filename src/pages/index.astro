@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+//microCMS呼び出し
+import { getNews } from "../library/microcms";
+const response = await getNews({ fields: ["id", "title"] });
+---
+
+<Layout title="My first news with Astro">
+  <main>
+    <ul>
+      {
+        response.contents.map((content: any) => (
+          <li class="text-xl text-white font-bold underline">
+            <a href={content.id}>{content.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1em;
+    max-width: 60ch;
+  }
+</style>
